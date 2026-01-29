@@ -19,10 +19,10 @@ const float AZ_STEPS_PER_DEG = 20.0;
 const float ALT_STEPS_PER_DEG = 20.0;
 
 // Limites físicos do hardware
-const float AZ_MIN = 0, AZ_MAX = 360; //Eixo horizontal
-const float ALT_MIN = 0, ALT_MAX = 90;//Eixo vertical (azimute 90)
+const float AZ_MIN = 0, AZ_MAX = 359.999; // Eixo horizontal
+const float ALT_MIN = 0, ALT_MAX = 90;    // Eixo vertical (azimute 90)
 
-//LIMPAR VARIÁVEIS
+// LIMPAR VARIÁVEIS
 float currentAz = 0.0;
 float currentAlt = 0.0;
 
@@ -35,11 +35,12 @@ float speedAz = 0;
 float speedAlt = 0;
 
 // compensação de folga de mudança de direção
-const int BACKLASH_AZ_STEPS = 5; 
+const int BACKLASH_AZ_STEPS = 5;
 const int BACKLASH_ALT_STEPS = 5;
 
 // ================== SETUP ==================
-void setup() {
+void setup()
+{
   Serial.begin(9600);
 
   motorAz.setMaxSpeed(800);
@@ -52,53 +53,74 @@ void setup() {
 }
 
 // ================== LOOP ==================
-void loop() {
-  if (!readBinaryTrack()) {
-    readCommand(); // ASCII fallback
+void loop()
+{
+  if (!readBinaryTrack())
+  {
+    readCommand();
   }
 
-  if (tracking) {
+  if (tracking)
+  {
     motorAz.setSpeed(speedAz);
     motorAlt.setSpeed(speedAlt);
     motorAz.runSpeed();
     motorAlt.runSpeed();
-  } else {
+  }
+  else
+  {
     motorAz.run();
     motorAlt.run();
+
+    if (!motorAz.isRunning() && !motorAlt.isRunning())
+    {
+      currentAz = motorAz.currentPosition() / AZ_STEPS_PER_DEG;
+      currentAlt = motorAlt.currentPosition() / ALT_STEPS_PER_DEG;
+    }
   }
 }
 
 // ================== SERIAL ==================
 String inputString = "";
-void readCommand() {
-  while (Serial.available()) {
+void readCommand()
+{
+  while (Serial.available())
+  {
     char inChar = (char)Serial.read();
-    if (inChar == '\n') {
+    if (inChar == '\n')
+    {
       inputString.trim();
       parseCommand(inputString);
       inputString = "";
-    } else {
+    }
+    else
+    {
       inputString += inChar;
     }
   }
 }
 
-void parseCommand(String cmd) {
-  if (cmd.startsWith("GOTO")) {
+void parseCommand(String cmd)
+{
+  if (cmd.startsWith("GOTO"))
+  {
     parseGoto(cmd);
     tracking = false;
     Serial.println("OK GOTO");
-  } 
-  else if (cmd.startsWith("TRACK")) {
+  }
+  else if (cmd.startsWith("TRACK"))
+  {
     parseTrackSpeed(cmd);
     tracking = true;
     Serial.println("OK TRACK");
   }
-  else if (cmd == "ZERO") {
+  else if (cmd == "ZERO")
+  {
     zeroPosition();
     Serial.println("OK ZERO");
-  } 
-  else if (cmd == "STOP") {
+  }
+  else if (cmd == "STOP")
+  {
     speedAz = 0;
     speedAlt = 0;
 
@@ -107,23 +129,28 @@ void parseCommand(String cmd) {
 
     motorAz.stop();
     motorAlt.stop();
+    motorAz.moveTo(motorAz.currentPosition());
+    motorAlt.moveTo(motorAlt.currentPosition());
 
     tracking = false;
     Serial.println("OK STOP");
   }
-  else {
+  else
+  {
     Serial.println("ERR SYNTAX");
   }
 }
 
 // ================== GOTO / TRACK ==================
-void parseGoto(String cmd) {
+void parseGoto(String cmd)
+{
   float az, alt;
 
   int azIndex = cmd.indexOf("AZ=");
   int altIndex = cmd.indexOf("ALT=");
 
-  if (azIndex < 0 || altIndex < 0) {
+  if (azIndex < 0 || altIndex < 0)
+  {
     Serial.println("ERR SYNTAX");
     return;
   }
@@ -135,15 +162,34 @@ void parseGoto(String cmd) {
 }
 
 // ================== MOVIMENTO ==================
-void moveTo(float az, float alt) {
+void applyBacklash(long nextAzSteps, long nextAltSteps)
+{
+  // Se direção mudou, empurra para compensar folga
+  if (nextAzSteps > motorAz.currentPosition())
+    nextAzSteps += BACKLASH_AZ_STEPS;
+  else if (nextAzSteps < motorAz.currentPosition())
+    nextAzSteps -= BACKLASH_AZ_STEPS;
+  if (nextAltSteps > motorAlt.currentPosition())
+    nextAltSteps += BACKLASH_ALT_STEPS;
+  else if (nextAltSteps < motorAlt.currentPosition())
+    nextAltSteps -= BACKLASH_ALT_STEPS;
+
+  motorAz.moveTo(nextAzSteps);
+  motorAlt.moveTo(nextAltSteps);
+}
+
+void moveTo(float az, float alt)
+{
   // Respeita limites fisicos
   az = constrain(az, AZ_MIN, AZ_MAX);
   alt = constrain(alt, ALT_MIN, ALT_MAX);
 
-  //Calcular menor delta (menor caminho) para voltas maiores que 180 nao derem a volta contando - graus
+  // Calcular menor delta (menor caminho) para voltas maiores que 180 nao derem a volta contando - graus
   float deltaAz = az - currentAz;
-  if (deltaAz > 180) deltaAz -= 360;
-  if (deltaAz < -180) deltaAz += 360;
+  if (deltaAz > 180)
+    deltaAz -= 360;
+  if (deltaAz < -180)
+    deltaAz += 360;
 
   long azSteps = (currentAz + deltaAz) * AZ_STEPS_PER_DEG;
   long altSteps = alt * ALT_STEPS_PER_DEG;
@@ -153,15 +199,13 @@ void moveTo(float az, float alt) {
   targetAz = az;
   targetAlt = alt;
 
-  motorAz.moveTo(azSteps);
-  motorAlt.moveTo(altSteps);
-
   currentAz = az;
   currentAlt = alt;
 }
 
 // ================== ZERO ==================
-void zeroPosition() {
+void zeroPosition()
+{
   motorAz.setCurrentPosition(0);
   motorAlt.setCurrentPosition(0);
 
@@ -170,11 +214,13 @@ void zeroPosition() {
 }
 
 // ================== TRACKER SPEED ==================
-void parseTrackSpeed(String cmd) {
+void parseTrackSpeed(String cmd)
+{
   int azIndex = cmd.indexOf("VAZ=");
   int altIndex = cmd.indexOf("VALT=");
 
-  if (azIndex < 0 || altIndex < 0) {
+  if (azIndex < 0 || altIndex < 0)
+  {
     Serial.println("ERR TRACK");
     return;
   }
@@ -192,28 +238,33 @@ void parseTrackSpeed(String cmd) {
 }
 
 // ================== BYNARY TRACKER ==================
-bool readBinaryTrack() {
-  if (Serial.available() < 12) return false;
+bool readBinaryTrack()
+{
+  if (Serial.available() < 12)
+    return false;
 
-  if (Serial.read() != 0x02) return false;
+  if (Serial.read() != 0x02)
+    return false;
 
   char cmd = Serial.read();
-  if (cmd != 'T') return false;
+  if (cmd != 'T')
+    return false;
 
   int32_t vaz_i = 0;
   int32_t valt_i = 0;
 
-  Serial.readBytes((byte*)&vaz_i, 4);
-  Serial.readBytes((byte*)&valt_i, 4);
+  Serial.readBytes((byte *)&vaz_i, 4);
+  Serial.readBytes((byte *)&valt_i, 4);
 
   byte chk = Serial.read();
-  if (Serial.read() != 0x03) return false;
+  if (Serial.read() != 0x03)
+    return false;
 
   // converte milideg/s → steps/s
-  speedAz  = (vaz_i / 1000.0) * AZ_STEPS_PER_DEG;
+  speedAz = (vaz_i / 1000.0) * AZ_STEPS_PER_DEG;
   speedAlt = (valt_i / 1000.0) * ALT_STEPS_PER_DEG;
 
-  speedAz  = constrain(speedAz, -200, 200);
+  speedAz = constrain(speedAz, -200, 200);
   speedAlt = constrain(speedAlt, -200, 200);
 
   tracking = true;
