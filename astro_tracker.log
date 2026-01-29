@@ -1,0 +1,39 @@
+2026-01-28 09:18:10,623 [INFO] Conectando Bluetooth em COM5
+2026-01-28 09:18:10,625 [ERROR] could not open port 'COM5': FileNotFoundError(2, 'O sistema não pode encontrar o arquivo especificado.', None, 2)
+2026-01-28 09:18:21,381 [INFO] Astro mars AZ=91.81 ALT=49.77
+2026-01-28 09:18:21,382 [ERROR] name 'generate_trajectory' is not defined
+2026-01-28 09:18:25,647 [INFO] Astro mars AZ=91.80 ALT=49.78
+2026-01-28 09:18:25,647 [ERROR] name 'generate_trajectory' is not defined
+2026-01-28 09:19:02,300 [INFO] Astro mars AZ=91.74 ALT=49.92
+2026-01-28 09:19:02,301 [ERROR] name 'generate_trajectory' is not defined
+2026-01-28 09:19:41,660 [INFO] Astro sun AZ=90.45 ALT=45.44
+2026-01-28 09:19:41,661 [ERROR] 'NoneType' object has no attribute 'send'
+2026-01-28 09:20:45,675 [INFO] Inicializando Skyfield
+2026-01-28 09:20:49,907 [INFO] Calculando posição de moon
+2026-01-28 09:20:49,908 [ERROR] cannot interpret a datetime that lacks a timezone
+
+You must either specify that your datetime is in UTC:
+
+    from skyfield.api import utc
+    d = datetime(..., tzinfo=utc)  # to build a new datetime
+    d = d.replace(tzinfo=utc)      # to fix an existing datetime
+
+Or use a timezone object like those provided by the third-party `pytz` library:
+
+    from pytz import timezone
+    eastern = timezone('US/Eastern')
+    d = eastern.localize(datetime(2014, 1, 16, 1, 32, 9))
+2026-01-28 09:20:57,407 [INFO] Calculando posição de moon
+2026-01-28 09:20:57,408 [ERROR] cannot interpret a datetime that lacks a timezone
+
+You must either specify that your datetime is in UTC:
+
+    from skyfield.api import utc
+    d = datetime(..., tzinfo=utc)  # to build a new datetime
+    d = d.replace(tzinfo=utc)      # to fix an existing datetime
+
+Or use a timezone object like those provided by the third-party `pytz` library:
+
+    from pytz import timezone
+    eastern = timezone('US/Eastern')
+    d = eastern.localize(datetime(2014, 1, 16, 1, 32, 9))
