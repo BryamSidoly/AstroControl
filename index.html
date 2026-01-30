@@ -293,8 +293,174 @@
       </ol>
     </section>
 
+    <section id="primeiro-uso" class="space-y-6">
+      <h3 class="text-xl font-bold border-l-4 border-blue-500 pl-3">
+        4.1 Primeira Utilização (Fluxo Recomendado)
+      </h3>
+
+      <p class="text-sm text-gray-700">
+        Este fluxo evita erros comuns de alinhamento, perda de referência e tracking impreciso.
+        Recomenda-se seguir a ordem abaixo sempre que o sistema for ligado.
+      </p>
+
+      <ol class="space-y-4 text-sm">
+        <li>
+          <strong>1️⃣ Montagem Mecânica</strong><br>
+          Garanta que o telescópio possua:
+          <ul class="list-disc list-inside ml-4">
+            <li>Redução mecânica instalada nos eixos AZ e ALT</li>
+            <li>Eixos livres, sem travamentos ou flexão</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>2️⃣ Inicialização do Hardware</strong><br>
+          Ligue o Arduino e conecte via Bluetooth ou USB.
+        </li>
+
+        <li>
+          <strong>3️⃣ Conexão no AstroControl</strong><br>
+          Clique em <strong>Atualizar</strong>, selecione a porta correta e clique em <strong>Conectar</strong>.
+        </li>
+
+        <li>
+          <strong>4️⃣ Configuração da Localização</strong><br>
+          Informe:
+          <ul class="list-disc list-inside ml-4">
+            <li>Latitude</li>
+            <li>Longitude</li>
+            <li>Altitude</li>
+          </ul>
+          Em seguida, clique em <strong>Aplicar localização manual</strong>.
+        </li>
+
+        <li>
+          <strong>5️⃣ Definição do ZERO Mecânico</strong><br>
+          Posicione o telescópio manualmente apontando aproximadamente para:
+          <ul class="list-disc list-inside ml-4">
+            <li>Norte geográfico</li>
+            <li>Altitude próxima de 0°</li>
+          </ul>
+          Clique em <strong>Definir ZERO</strong>.
+        </li>
+
+        <li>
+          <strong>6️⃣ Movimento GOTO</strong><br>
+          Selecione um alvo e clique em <strong>GOTO</strong>.
+        </li>
+
+        <li>
+          <strong>7️⃣ Rastreamento</strong><br>
+          Após o objeto estar centralizado, ative <strong>TRACK ON</strong>.
+        </li>
+      </ol>
+
+      <div class="bg-blue-50 border-l-4 border-blue-500 p-4 text-sm">
+        📌 Seguir este fluxo resolve mais de <strong>90% dos problemas</strong> relatados em sistemas de rastreamento
+        Alt-Az.
+      </div>
+    </section>
+
+    <section id="problemas-comuns" class="space-y-4 mt-10">
+      <h3 class="text-xl font-bold border-l-4 border-red-500 pl-3">
+        4.2 Problemas Comuns
+      </h3>
+
+      <div class="bg-red-50 p-4 rounded-lg text-sm space-y-3">
+        <p>
+          🔴 <strong>O telescópio não acompanha o objeto</strong><br>
+          ✔ Verifique se o <strong>TRACK ON</strong> está ativado<br>
+          ✔ Confirme se a redução mecânica é suficiente
+        </p>
+
+        <p>
+          🔴 <strong>O GOTO erra muito a posição</strong><br>
+          ✔ Confira latitude e longitude<br>
+          ✔ Ajuste passos por grau e backlash
+        </p>
+
+        <p>
+          🔴 <strong>Movimento tremido ou instável</strong><br>
+          ✔ Reduza o microstepping<br>
+          ✔ Aumente a redução mecânica<br>
+          ✔ Verifique folgas estruturais
+        </p>
+      </div>
+    </section>
+
+    <section id="calculos" class="space-y-6 mt-14">
+      <h2 class="text-2xl font-bold border-b-4 border-blue-500 inline-block mb-4">
+        5. Como o AstroControl Calcula o Movimento
+      </h2>
+
+      <p class="text-sm">
+        O AstroControl Pro converte a posição real dos astros no céu em movimentos
+        mecânicos precisos nos eixos do telescópio.
+        Todo o cálculo é feito em tempo real no computador.
+      </p>
+    </section>
+
+    <div class="grid md:grid-cols-4 gap-4 text-sm mt-6">
+      <div class="bg-white p-4 shadow rounded border-t-4 border-indigo-500">
+        <strong>Efemérides</strong><br>
+        Dados JPL/NASA (Skyfield)
+      </div>
+
+      <div class="bg-white p-4 shadow rounded border-t-4 border-blue-500">
+        <strong>Coordenadas</strong><br>
+        RA/DEC → Alt-Az
+      </div>
+
+      <div class="bg-white p-4 shadow rounded border-t-4 border-teal-500">
+        <strong>Velocidades</strong><br>
+        °/s → passos/s
+      </div>
+
+      <div class="bg-white p-4 shadow rounded border-t-4 border-green-500">
+        <strong>Movimento</strong><br>
+        Motores de passo
+      </div>
+    </div>
+
+    <p class="text-sm mt-6">
+      O software calcula a posição dos astros utilizando efemérides de alta precisão
+      da NASA (JPL), considerando:
+    </p>
+
+    <ul class="list-disc list-inside text-sm ml-4">
+      <li>Latitude, longitude e altitude do observador</li>
+      <li>Data e hora exatas (UTC)</li>
+      <li>Refração atmosférica opcional</li>
+    </ul>
+
+    <p class="text-sm mt-2">
+      A partir disso, as coordenadas equatoriais (RA/DEC)
+      são convertidas para coordenadas locais
+      <strong>Altitude (ALT)</strong> e <strong>Azimute (AZ)</strong>.
+    </p>
+
+    <p class="text-sm mt-6">
+      Após calcular ALT e AZ, o software converte ângulo em movimento mecânico:
+    </p>
+
+    <div class="code-block text-sm">
+      graus_por_segundo × passos_por_grau = passos_por_segundo
+    </div>
+
+    <p class="text-sm mt-2">
+      Esses valores são enviados ao Arduino no modo <strong>Tracking</strong>,
+      atualizados a cada 100 ms, garantindo movimento suave e contínuo.
+    </p>
+
+    <div class="bg-green-50 border-l-4 border-green-500 p-4 text-sm mt-6">
+      <strong>✔ Por que o tracking é preciso?</strong><br>
+      O AstroControl não move o telescópio em saltos.
+      Ele ajusta constantemente a velocidade dos motores
+      para compensar a rotação da Terra em tempo real.
+    </div>
+
     <section id="arquivos" class="space-y-6">
-      <h2 class="text-2xl font-bold border-b-4 border-blue-500 inline-block mb-4">5. Arquivos do Projeto</h2>
+      <h2 class="text-2xl font-bold border-b-4 border-blue-500 inline-block mb-4">6. Arquivos do Projeto</h2>
 
       <div class="grid md:grid-cols-2 gap-4">
         <div class="bg-gray-900 text-white p-6 rounded-xl shadow-lg relative overflow-hidden group">
