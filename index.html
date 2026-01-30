@@ -253,10 +253,59 @@
       const int BACKLASH_ALT_STEPS = 5;
     </div>
 
-    <p class="text-xs italic text-gray-500 mt-2">
-      Esses valores variam conforme: motor, microstepping, relação de engrenagens
-      e qualidade mecânica do conjunto.
-    </p>
+    <section id="exemplo-parametrizacao" class="space-y-6 mt-14">
+      <h2 class="text-2xl font-bold border-b-4 border-blue-500 inline-block mb-4">
+        Exemplo Real de Parametrização
+      </h2>
+
+      <p class="text-sm text-gray-700">
+        A tabela abaixo apresenta um <strong>exemplo realista</strong> de configuração
+        para um telescópio Dobsoniano motorizado.
+        Os valores servem como <u>referência inicial</u>,
+        não como regra fixa.
+      </p>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm border-collapse border border-gray-300">
+          <thead class="bg-slate-200 text-center">
+            <tr>
+              <th class="border p-2">Setup</th>
+              <th class="border p-2">Motor</th>
+              <th class="border p-2">Microstepping</th>
+              <th class="border p-2">Redução Mecânica</th>
+              <th class="border p-2">Steps / Grau</th>
+            </tr>
+          </thead>
+          <tbody class="text-center bg-white">
+            <tr>
+              <td class="border p-2 font-semibold">Dobson 8" DIY</td>
+              <td class="border p-2">NEMA 17</td>
+              <td class="border p-2">1/16</td>
+              <td class="border p-2">1:60</td>
+              <td class="border p-2">≈ 32.0</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="bg-blue-50 border-l-4 border-blue-500 p-4 text-sm">
+        💡 <strong>Importante:</strong><br>
+        O valor de <strong>Steps por Grau</strong> depende diretamente de:
+        <ul class="list-disc list-inside ml-4 mt-2">
+          <li>Passos nativos do motor</li>
+          <li>Microstepping configurado no driver</li>
+          <li>Relação exata da redução mecânica</li>
+        </ul>
+      </div>
+
+      <p class="text-xs italic text-gray-500">
+        Use este exemplo como ponto de partida e ajuste conforme
+        o comportamento real do seu sistema.
+        Esses valores variam conforme: motor, microstepping, relação de engrenagens
+        e qualidade mecânica do conjunto.
+      </p>
+      </p>
+    </section>
 
     <div class="diagram-container mt-6">
       <p class="font-bold mb-4">Esquema Mecânico do Sistema</p>
@@ -692,6 +741,78 @@
       Ele ajusta constantemente a velocidade dos motores
       para compensar a rotação da Terra em tempo real.
     </div>
+
+    <section id="glossario" class="space-y-6 mt-14">
+      <h2 class="text-2xl font-bold border-b-4 border-indigo-500 inline-block mb-4">
+        Glossário Técnico Rápido
+      </h2>
+
+      <p class="text-sm text-gray-700">
+        Esta seção explica termos técnicos recorrentes ao longo do manual.
+        Serve como referência rápida para quem está começando
+        ou deseja entender melhor os conceitos envolvidos.
+      </p>
+
+      <div class="grid md:grid-cols-2 gap-6 text-sm">
+
+        <div class="bg-white p-4 shadow rounded border-l-4 border-orange-500">
+          <strong>Backlash (Folga Mecânica)</strong>
+          <p class="mt-2">
+            Jogo mecânico presente em engrenagens, correias ou sistemas de redução,
+            onde o movimento do motor não é imediatamente transferido ao eixo.
+          </p>
+          <p class="mt-1 italic text-gray-600">
+            👉 Não é erro de software. O código apenas compensa parcialmente.
+          </p>
+        </div>
+
+        <div class="bg-white p-4 shadow rounded border-l-4 border-blue-500">
+          <strong>Microstepping</strong>
+          <p class="mt-2">
+            Técnica usada pelos drivers de motor para dividir um passo inteiro
+            em frações menores (1/8, 1/16, 1/32…), aumentando suavidade e resolução.
+          </p>
+          <p class="mt-1 italic text-gray-600">
+            Mais microsteps ≠ mais torque.
+          </p>
+        </div>
+
+        <div class="bg-white p-4 shadow rounded border-l-4 border-green-500">
+          <strong>Alt-Az (Altitude-Azimute)</strong>
+          <p class="mt-2">
+            Sistema de coordenadas baseado na posição do observador:
+            <strong>Altitude</strong> indica altura acima do horizonte,
+            e <strong>Azimute</strong> indica direção ao redor do horizonte.
+          </p>
+          <p class="mt-1 italic text-gray-600">
+            Simples, intuitivo e ideal para observação visual.
+          </p>
+        </div>
+
+        <div class="bg-white p-4 shadow rounded border-l-4 border-indigo-500">
+          <strong>Efemérides</strong>
+          <p class="mt-2">
+            Conjunto de dados astronômicos que descrevem a posição
+            dos astros ao longo do tempo.
+          </p>
+          <p class="mt-1 italic text-gray-600">
+            O AstroControl usa dados JPL/NASA via Skyfield.
+          </p>
+        </div>
+
+        <div class="bg-white p-4 shadow rounded border-l-4 border-teal-500 md:col-span-2">
+          <strong>Tracking Sideral</strong>
+          <p class="mt-2">
+            Movimento contínuo do telescópio para compensar
+            a rotação da Terra, mantendo o astro centralizado no campo de visão.
+          </p>
+          <p class="mt-1 italic text-gray-600">
+            Não é um movimento fixo — a velocidade muda em tempo real.
+          </p>
+        </div>
+
+      </div>
+    </section>
 
     <section id="faq" class="space-y-6 mt-12">
       <h2 class="text-2xl font-bold border-b-4 border-indigo-500 inline-block mb-4">
