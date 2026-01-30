@@ -388,6 +388,84 @@
       </div>
     </section>
 
+    <section id="limitacoes" class="space-y-6 mt-12">
+      <h2 class="text-2xl font-bold border-b-4 border-orange-500 inline-block mb-4">
+        4.3 Limitações Conhecidas do Sistema
+      </h2>
+
+      <p class="text-sm text-gray-700">
+        O AstroControl Pro foi projetado para ser um sistema de rastreamento
+        <strong>simples, genérico e acessível</strong>.
+        Algumas limitações são inerentes à escolha da montagem Alt-Az
+        e ao foco em controle por motores de passo sem encoders absolutos.
+        <p><b>* A IDEIA É NÃO DEPENDER DE SENSORES OU HARDWARE COMPLEXO, APENAS MATEMÁTICA DE PRECISÃO.</b></p>
+      </p>
+
+      <div class="grid md:grid-cols-2 gap-6 text-sm">
+
+        <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded">
+          <p class="font-bold mb-2">❌ Limitações Técnicas</p>
+          <ul class="list-disc list-inside space-y-2">
+            <li>
+              <strong>Rotação de campo:</strong><br>
+              Montagens Alt-Az não compensam a rotação do campo celeste.
+              O AstroControl <u>não corrige rotação de campo</u>.
+            </li>
+            <li>
+              <strong>Astrofotografia de longa exposição:</strong><br>
+              Não recomendado para exposições longas
+              (acima de alguns segundos), especialmente em céu profundo.
+            </li>
+            <li>
+              <strong>Dependência mecânica:</strong><br>
+              Precisão final depende diretamente da
+              qualidade da redução mecânica, rigidez estrutural e controle de folga.
+            </li>
+            <li>
+              <strong>Sem encoders absolutos:</strong><br>
+              O sistema assume que os motores não perdem passos.
+              Colisões ou travamentos podem causar perda de referência.
+            </li>
+          </ul>
+        </div>
+
+        <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded">
+          <p class="font-bold mb-2">✔ Onde o Sistema se Destaca</p>
+          <ul class="list-disc list-inside space-y-2">
+            <li>
+              <strong>Observação visual:</strong><br>
+              Excelente para observação visual de planetas,
+              Lua, Sol (com filtro apropriado) e objetos brilhantes.
+            </li>
+            <li>
+              <strong>Planetária e vídeo:</strong><br>
+              Ideal para captura planetária por vídeo
+              (lucky imaging) e empilhamento.
+            </li>
+            <li>
+              <strong>Objetos acima do horizonte:</strong><br>
+              Funciona melhor com objetos acima de
+              <strong>20° a 25° de altitude</strong>,
+              onde a refração atmosférica e erros mecânicos são menores.
+            </li>
+            <li>
+              <strong>Projetos DIY e educacionais:</strong><br>
+              Ótimo para aprendizado de astronomia,
+              mecânica, eletrônica e controle de movimento.
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="bg-blue-50 border-l-4 border-blue-500 p-4 text-sm mt-4">
+        💡 <strong>Nota:</strong><br>
+        Para aplicações avançadas de astrofotografia,
+        recomenda-se montagens equatoriais ou sistemas Alt-Az
+        com correção ativa de rotação de campo e encoders de alta resolução.
+      </div>
+    </section>
+
     <section id="calculos" class="space-y-6 mt-14">
       <h2 class="text-2xl font-bold border-b-4 border-blue-500 inline-block mb-4">
         5. Como o AstroControl Calcula o Movimento
