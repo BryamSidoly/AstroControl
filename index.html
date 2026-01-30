@@ -241,6 +241,126 @@
     </div>
     <br>
 
+    <section id="zero-mecanico" class="space-y-6 mt-12">
+      <h2 class="text-2xl font-bold border-b-4 border-indigo-500 inline-block mb-4">
+        Definição do ZERO Mecânico (Referência Inicial)
+      </h2>
+
+      <p class="text-sm text-gray-700">
+        Antes de qualquer operação de <strong>GOTO</strong> ou <strong>TRACK</strong>,
+        o sistema precisa de uma <strong>referência absoluta inicial</strong>,
+        chamada de <strong>ZERO mecânico</strong>.
+      </p>
+
+      <p class="text-sm text-gray-700">
+        Esse ZERO define a relação entre:
+      </p>
+
+      <ul class="list-disc list-inside text-sm ml-4">
+        <li>O céu real</li>
+        <li>Os cálculos astronômicos</li>
+        <li>A posição física dos motores</li>
+      </ul>
+
+      <div class="bg-blue-50 border-l-4 border-blue-500 p-4 text-sm mt-4">
+        📍 <strong>Posição recomendada para definir o ZERO</strong><br><br>
+
+        Ao clicar em <strong>Definir ZERO</strong>, o telescópio deve estar
+        posicionado manualmente da seguinte forma:
+        <ul class="list-disc list-inside mt-2 ml-4">
+          <li>🔭 Apontado para o <strong>Norte geográfico</strong> (não magnético)</li>
+          <li>📐 <strong>Altitude próxima de 0°</strong> (paralelo ao horizonte)</li>
+          <li>🔄 <strong>Sem tracking ativo</strong></li>
+        </ul>
+
+        <p class="mt-3">
+          Essa posição estabelece:
+          <br>
+          <strong>AZ = 0°</strong><br>
+          <strong>ALT = 0°</strong>
+        </p>
+      </div>
+
+      <h3 class="font-bold text-lg text-slate-700 mt-6">
+        🧭 Sistema de Coordenadas Mecânicas
+      </h3>
+
+      <div class="grid md:grid-cols-2 gap-6 text-sm">
+        <div class="bg-white p-4 shadow rounded border-t-4 border-indigo-500">
+          <strong>Azimute (AZ)</strong>
+          <ul class="list-disc list-inside mt-2">
+            <li>0° → Norte geográfico</li>
+            <li>Aumenta no sentido horário</li>
+            <li>Intervalo: 0° → 359.999°</li>
+          </ul>
+        </div>
+
+        <div class="bg-white p-4 shadow rounded border-t-4 border-teal-500">
+          <strong>Altitude (ALT)</strong>
+          <ul class="list-disc list-inside mt-2">
+            <li>0° → Horizonte</li>
+            <li>90° → Zênite</li>
+            <li>Intervalo: 0° → 90°</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="diagram-container mt-6">
+        <p class="font-bold mb-4 text-slate-600 uppercase">
+          Referência Mecânica Inicial (ZERO)
+        </p>
+
+        <svg viewBox="0 0 400 300" class="mx-auto max-w-full">
+          <!-- Horizonte -->
+          <line x1="100" y1="200" x2="300" y2="200" stroke="#334155" stroke-width="2" />
+          <text x="310" y="205" font-size="8" font-weight="bold">
+            Horizonte (ALT = 0°)
+          </text>
+          
+          <!-- Norte -->
+          <line x1="200" y1="200" x2="200" y2="80" stroke="#2563eb" stroke-width="3" />
+          <polygon points="200,60 190,80 210,80" fill="#2563eb" />
+          <text x="160" y="50" font-size="14" fill="#2563eb">
+            Norte (AZ = 0°)
+          </text>
+
+          <!-- Arco AZ -->
+          <path d="M200 200 A80 80 0 0 1 280 200" fill="none" stroke="#16a34a" stroke-width="2" />
+          <text x="250" y="170" font-size="12" fill="#16a34a">
+            AZ +
+          </text>
+
+          <!-- Tubo -->
+          <line x1="200" y1="200" x2="200" y2="170" stroke="#000" stroke-width="6" />
+          <text x="210" y="165" font-size="12">Tubo</text>
+        </svg>
+
+        <p class="text-xs text-gray-500 mt-2 italic">
+          O tubo deve estar alinhado ao horizonte e apontando para o Norte
+          no momento em que o ZERO for definido.
+        </p>
+      </div>
+
+      <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 text-sm mt-6">
+        ⚠️ <strong>Observações Importantes</strong><br>
+        <ul class="list-disc list-inside mt-2 ml-4">
+          <li>O ZERO <strong>não é automático</strong></li>
+          <li>Qualquer colisão, travamento ou perda de passo <strong>invalida a referência</strong></li>
+          <li>Sempre redefina o ZERO ao:
+            <ul class="list-disc list-inside ml-4">
+              <li>Reiniciar o sistema</li>
+              <li>Mover o telescópio manualmente</li>
+              <li>Desligar os motores</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <div class="bg-green-50 border-l-4 border-green-500 p-4 text-sm">
+        📌 <strong>Uma boa definição do ZERO resolve a maioria dos erros de GOTO e tracking.</strong>
+      </div>
+    </section>
+
     <section id="protocolo" class="space-y-4">
       <h2 class="text-2xl font-bold border-b-4 border-blue-500 inline-block mb-2">3. Protocolo de Dados</h2>
       <p>O software envia dois tipos de frames para o Arduino:</p>
@@ -398,7 +518,7 @@
         <strong>simples, genérico e acessível</strong>.
         Algumas limitações são inerentes à escolha da montagem Alt-Az
         e ao foco em controle por motores de passo sem encoders absolutos.
-        <p><b>* A IDEIA É NÃO DEPENDER DE SENSORES OU HARDWARE COMPLEXO, APENAS MATEMÁTICA DE PRECISÃO.</b></p>
+      <p><b>* A IDEIA É NÃO DEPENDER DE SENSORES OU HARDWARE COMPLEXO, APENAS MATEMÁTICA DE PRECISÃO.</b></p>
       </p>
 
       <div class="grid md:grid-cols-2 gap-6 text-sm">
