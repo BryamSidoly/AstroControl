@@ -30,16 +30,59 @@
       border-radius: 50%;
       display: inline-block;
     }
+
+    .star-header {
+      background:
+        radial-gradient(ellipse at bottom, #0b1d3a 0%, #020617 70%),
+        radial-gradient(circle, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+      background-size: cover, 3px 3px;
+    }
+
+    .star-header::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(1px 1px at 20% 30%, white, transparent),
+        radial-gradient(1px 1px at 80% 40%, white, transparent),
+        radial-gradient(1px 1px at 50% 70%, white, transparent),
+        radial-gradient(1px 1px at 10% 80%, white, transparent);
+      opacity: 0.6;
+    }
+
+    @keyframes twinkle {
+
+      0%,
+      100% {
+        opacity: 0.8;
+      }
+
+      50% {
+        opacity: 0.3;
+      }
+    }
+
+    .star-header::before {
+      animation: twinkle 6s infinite ease-in-out;
+    }
+
+    #stars {
+      width: 100%;
+      height: 100%;
+    }
   </style>
 </head>
 
 <body class="bg-gray-50 text-gray-800 font-sans">
 
-  <header class="bg-slate-900 text-white py-12 px-6 shadow-xl">
-    <div class="max-w-4xl mx-auto">
+  <header class="relative text-white py-16 px-6 shadow-xl overflow-hidden star-header">
+    <canvas id="stars" class="absolute inset-0"></canvas>
+    <div class="relative z-10 max-w-4xl mx-auto">
       <h1 class="text-4xl font-bold mb-2">AstroControl Pro v3.0</h1>
-      <p class="text-blue-400">Software Open Source para Controle de Telescópios NEMA 17 / Arduino Uno</p>
-      <div class="mt-4 flex gap-4 text-sm">
+      <p class="text-blue-300">
+        Software Open Source para Controle de Telescópios NEMA 17 / Arduino Uno
+      </p>
+      <div class="mt-4 flex gap-4 text-sm opacity-90">
         <span>📅 Versão: 01/2026</span>
         <span>👤 Autor: Bryam S. Sierpinski</span>
       </div>
@@ -67,6 +110,16 @@
         </div>
       </div>
     </section>
+
+    <div class="bg-blue-50 p-4 border-l-4 border-blue-500 mt-6">
+      <strong>Compatibilidade com Telescópios:</strong><br>
+      O AstroControl Pro é <u>independente do modelo de telescópio</u>.
+      Ele pode ser utilizado em <strong>qualquer montagem Alt-Az</strong>
+      (dobsoniana, fork, customizada, artesanal ou comercial),
+      desde que os eixos de <strong>Azimute (AZ)</strong> e <strong>Altitude (ALT)</strong>
+      sejam movimentados por <strong>motores de passo</strong> acoplados por
+      <strong>redução mecânica</strong> (engrenagens, polias ou sem-fim).
+    </div>
 
     <section id="hardware">
       <h2 class="text-2xl font-bold border-b-4 border-blue-500 inline-block mb-6">2. Hardware e Conexões</h2>
@@ -96,6 +149,97 @@
         módulo vai no TX do Arduino (Pin 1) e vice-versa, operando a 9600 bps.
       </div>
     </section>
+
+    <section id="mecanica">
+      <h2 class="text-2xl font-bold border-b-4 border-blue-500 inline-block mb-6">
+        2.1 Requisitos Mecânicos do Sistema
+      </h2>
+
+      <p class="mb-4">
+        O AstroControl Pro <strong>não aciona o telescópio diretamente</strong>.
+        É obrigatório o uso de um <strong>sistema de redução mecânica</strong>
+        entre o motor de passo e cada eixo do telescópio.
+      </p>
+
+      <div class="bg-red-50 p-4 border-l-4 border-red-500 mb-6">
+        <strong>⚠️ Atenção:</strong><br>
+        Conectar o motor diretamente ao eixo do telescópio
+        <u>não fornece torque nem resolução suficientes</u>
+        para rastreio astronômico preciso.
+      </div>
+
+      <h3 class="font-bold text-lg mb-2">O que é necessário em cada eixo (AZ e ALT):</h3>
+
+      <ul class="list-disc list-inside space-y-2 text-sm">
+        <li>✔ 1 motor de passo (ex: NEMA 17)</li>
+        <li>✔ 1 sistema de redução mecânica (obrigatório)</li>
+        <li>✔ Fixação rígida e sem flexão estrutural</li>
+        <li>✔ Controle de folga (backlash)</li>
+      </ul>
+    </section>
+
+
+    <h3 class="font-bold text-lg mt-6 mb-2">
+      Tipos de Redução Mecânica Compatíveis
+    </h3>
+
+    <p class="text-sm mb-4">
+      O software é compatível com <strong>qualquer tipo de redução</strong>,
+      desde que o movimento final seja previsível e repetível.
+    </p>
+
+    <div class="grid md:grid-cols-3 gap-4 text-sm">
+      <div class="bg-white p-4 shadow rounded">
+        <strong>Engrenagens</strong><br>
+        - Impressão 3D (PLA, PETG, ABS)<br>
+        - Engrenagens comerciais<br>
+        - Relação típica: 1:20 até 1:200
+      </div>
+
+      <div class="bg-white p-4 shadow rounded">
+        <strong>Correias / Polias</strong><br>
+        - GT2 / HTD<br>
+        - Baixo ruído<br>
+        - Fácil ajuste de tensão
+      </div>
+
+      <div class="bg-white p-4 shadow rounded">
+        <strong>Sem-fim (Worm Gear)</strong><br>
+        - Ideal para tracking<br>
+        - Alta redução<br>
+        - Folga deve ser bem ajustada
+      </div>
+    </div>
+
+    <h3 class="font-bold text-lg mt-6 mb-2">
+      Parametrização para Diferentes Telescópios
+    </h3>
+
+    <p class="text-sm mb-4">
+      A adaptação para qualquer telescópio é feita exclusivamente
+      pelo ajuste dos parâmetros abaixo no firmware Arduino:
+    </p>
+
+    <div class="code-block text-sm">
+      // Passos por grau (depende da redução mecânica)
+      const float AZ_STEPS_PER_DEG = 20.0;
+      const float ALT_STEPS_PER_DEG = 20.0;
+
+      // Compensação de folga mecânica (backlash)
+      const int BACKLASH_AZ_STEPS = 5;
+      const int BACKLASH_ALT_STEPS = 5;
+    </div>
+
+    <p class="text-xs italic text-gray-500 mt-2">
+      Esses valores variam conforme: motor, microstepping, relação de engrenagens
+      e qualidade mecânica do conjunto.
+    </p>
+
+    <div class="diagram-container mt-6">
+      <p class="font-bold mb-4">Esquema Mecânico do Sistema</p>
+      <img src="esquema_mecanico.svg" alt="Esquema mecânico do sistema AstroControl" class="mx-auto max-w-full h-auto">
+    </div>
+    <br>
 
     <section id="protocolo" class="space-y-4">
       <h2 class="text-2xl font-bold border-b-4 border-blue-500 inline-block mb-2">3. Protocolo de Dados</h2>
@@ -150,37 +294,41 @@
     </section>
 
     <section id="arquivos" class="space-y-6">
-        <h2 class="text-2xl font-bold border-b-4 border-blue-500 inline-block mb-4">5. Arquivos do Projeto</h2>
-        
-        <div class="grid md:grid-cols-2 gap-4">
-            <div class="bg-gray-900 text-white p-6 rounded-xl shadow-lg relative overflow-hidden group">
-                <div class="flex justify-between items-start mb-4">
-                    <div>
-                        <h3 class="text-xl font-mono font-bold text-blue-400">AstroControl Pro 3.0.py</h3>
-                        <p class="text-xs text-gray-400">Interface PyQt6 & Cálculos Skyfield</p>
-                    </div>
-                    <span class="text-3xl">🐍</span>
-                </div>
-                <div class="flex gap-3">
-                    <a href="main3.0.py" target="_blank" class="text-xs bg-gray-700 hover:bg-gray-600 px-3 py-2 rounded transition">👁️ Visualizar</a>
-                    <a href="main3.0.py" download class="text-xs bg-blue-600 hover:bg-blue-500 px-3 py-2 rounded transition font-bold">⬇️ Download</a>
-                </div>
-            </div>
+      <h2 class="text-2xl font-bold border-b-4 border-blue-500 inline-block mb-4">5. Arquivos do Projeto</h2>
 
-            <div class="bg-gray-900 text-white p-6 rounded-xl shadow-lg relative overflow-hidden group">
-                <div class="flex justify-between items-start mb-4">
-                    <div>
-                        <h3 class="text-xl font-mono font-bold text-teal-400">tracker.ino</h3>
-                        <p class="text-xs text-gray-400">Firmware de Controle de Motores</p>
-                    </div>
-                    <span class="text-3xl">🤖</span>
-                </div>
-                <div class="flex gap-3">
-                    <a href="tracker3.0.ino" target="_blank" class="text-xs bg-gray-700 hover:bg-gray-600 px-3 py-2 rounded transition">👁️ Visualizar</a>
-                    <a href="tracker3.0.ino" download class="text-xs bg-teal-600 hover:bg-teal-500 px-3 py-2 rounded transition font-bold">⬇️ Download</a>
-                </div>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="bg-gray-900 text-white p-6 rounded-xl shadow-lg relative overflow-hidden group">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <h3 class="text-xl font-mono font-bold text-blue-400">AstroControl Pro 3.0.py</h3>
+              <p class="text-xs text-gray-400">Interface PyQt6 & Cálculos Skyfield</p>
             </div>
+            <span class="text-3xl">🐍</span>
+          </div>
+          <div class="flex gap-3">
+            <a href="main3.0.py" target="_blank"
+              class="text-xs bg-gray-700 hover:bg-gray-600 px-3 py-2 rounded transition">👁️ Visualizar</a>
+            <a href="main3.0.py" download
+              class="text-xs bg-blue-600 hover:bg-blue-500 px-3 py-2 rounded transition font-bold">⬇️ Download</a>
+          </div>
         </div>
+
+        <div class="bg-gray-900 text-white p-6 rounded-xl shadow-lg relative overflow-hidden group">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <h3 class="text-xl font-mono font-bold text-teal-400">tracker.ino</h3>
+              <p class="text-xs text-gray-400">Firmware de Controle de Motores</p>
+            </div>
+            <span class="text-3xl">🤖</span>
+          </div>
+          <div class="flex gap-3">
+            <a href="tracker3.0.ino" target="_blank"
+              class="text-xs bg-gray-700 hover:bg-gray-600 px-3 py-2 rounded transition">👁️ Visualizar</a>
+            <a href="tracker3.0.ino" download
+              class="text-xs bg-teal-600 hover:bg-teal-500 px-3 py-2 rounded transition font-bold">⬇️ Download</a>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section id="download" class="bg-white p-8 shadow-lg rounded-xl border border-blue-100">
@@ -223,11 +371,114 @@
 
   </main>
 
-  <footer class="bg-slate-100 border-t border-gray-300 py-8 text-center text-gray-600 text-sm">
+  <footer class="bg-slate-950 text-slate-400 py-8 text-center text-sm">
     <p>AstroControl Pro - Criado por um curioso, para curiosos.</p>
     <p class="mt-2 font-mono">Uso Livre 😊 - GPL License</p>
   </footer>
 
 </body>
+<script>
+  const canvas = document.getElementById("stars");
+  const ctx = canvas.getContext("2d");
+
+  let time = 0;
+
+  function resize() {
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+  }
+  window.addEventListener("resize", resize);
+  resize();
+
+  const stars = Array.from({ length: 140 }, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 1.4,
+    baseOpacity: 0.35 + Math.random() * 0.4,
+    twinkleAmp: Math.random() < 0.6 ? 0.35 + Math.random() * 0.4 : 0,
+    twinkleSpeed: 0.8 + Math.random() * 2.2,
+    phase: Math.random() * Math.PI * 2,
+    noise: Math.random() * 10
+  }));
+
+  let shootingStars = [];
+
+  function createShootingStar() {
+    shootingStars.push({
+      x: Math.random() * canvas.width * 0.8,
+      y: Math.random() * canvas.height * 0.4,
+      len: 80 + Math.random() * 120,
+      speed: 12 + Math.random() * 6,
+      angle: Math.PI / 4,
+      life: 0,
+      maxLife: 20
+    });
+  }
+
+  setInterval(() => {
+    if (Math.random() < 0.25) createShootingStar();
+  }, 2000);
+
+  function drawStars() {
+    stars.forEach(s => {
+
+      const jitter = (Math.random() - 0.5) * 0.04;
+
+      const twinkle =
+        s.twinkleAmp > 0
+          ? Math.sin(time * s.twinkleSpeed + s.phase + s.noise) * s.twinkleAmp
+          : 0;
+
+      const opacity = s.baseOpacity + twinkle + jitter;
+
+      ctx.globalAlpha = Math.min(1, Math.max(0.15, opacity));
+
+      if (opacity > 0.85) {
+        ctx.shadowColor = "rgba(255,255,255,0.6)";
+        ctx.shadowBlur = 8;
+      } else {
+        ctx.shadowBlur = 0;
+      }
+
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = "white";
+      ctx.fill();
+    });
+
+    time += 0.02;
+  }
+
+  function drawShootingStars() {
+    shootingStars.forEach((s, i) => {
+      ctx.globalAlpha = 1 - s.life / s.maxLife;
+
+      const dx = Math.cos(s.angle) * s.len;
+      const dy = Math.sin(s.angle) * s.len;
+
+      ctx.strokeStyle = "white";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(s.x, s.y);
+      ctx.lineTo(s.x - dx, s.y - dy);
+      ctx.stroke();
+
+      s.x += Math.cos(s.angle) * s.speed;
+      s.y += Math.sin(s.angle) * s.speed;
+      s.life++;
+
+      if (s.life > s.maxLife) shootingStars.splice(i, 1);
+    });
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawStars();
+    drawShootingStars();
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+</script>
 
 </html>
