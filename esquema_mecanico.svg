@@ -1,0 +1,68 @@
+<svg width="900" height="420" viewBox="0 0 900 420" xmlns="http://www.w3.org/2000/svg" font-family="Arial, Helvetica, sans-serif">
+
+  <!-- Fundo -->
+  <rect x="0" y="0" width="900" height="420" rx="20" fill="#f8fafc"></rect>
+
+  <!-- Título -->
+  <text x="450" y="40" text-anchor="middle" font-size="22" font-weight="bold" fill="#0f172a">
+    Esquema Genérico – Controle de Telescópio com Redução Mecânica
+  </text>
+
+  <!-- Blocos -->
+  <!-- Software -->
+  <rect x="40" y="120" width="170" height="90" rx="12" fill="#dbeafe" stroke="#2563eb" stroke-width="2"></rect>
+  <text x="125" y="155" text-anchor="middle" font-weight="bold" fill="#1e3a8a">AstroControl Pro</text>
+  <text x="125" y="178" text-anchor="middle" font-size="12" fill="#1e3a8a">Cálculo AZ / ALT</text>
+
+  <!-- Arduino -->
+  <rect x="250" y="120" width="170" height="90" rx="12" fill="#dcfce7" stroke="#16a34a" stroke-width="2"></rect>
+  <text x="335" y="155" text-anchor="middle" font-weight="bold" fill="#14532d">Arduino + Driver</text>
+  <text x="335" y="178" text-anchor="middle" font-size="12" fill="#14532d">STEP / DIR</text>
+
+  <!-- Motor -->
+  <rect x="460" y="120" width="170" height="90" rx="12" fill="#fef3c7" stroke="#d97706" stroke-width="2"></rect>
+  <text x="545" y="155" text-anchor="middle" font-weight="bold" fill="#92400e">Motor de Passo</text>
+  <text x="545" y="178" text-anchor="middle" font-size="12" fill="#92400e">NEMA 17</text>
+
+  <!-- Redução -->
+  <rect x="670" y="120" width="190" height="90" rx="12" fill="#fee2e2" stroke="#dc2626" stroke-width="2"></rect>
+  <text x="765" y="150" text-anchor="middle" font-weight="bold" fill="#7f1d1d">
+    Redução Mecânica
+  </text>
+  <text x="765" y="172" text-anchor="middle" font-size="12" fill="#7f1d1d">
+    Engrenagens / Polias / Sem-fim
+  </text>
+  <text x="765" y="192" text-anchor="middle" font-size="11" fill="#7f1d1d">
+    (Impressão 3D ou comercial)
+  </text>
+
+  <!-- Setas -->
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#334155"></path>
+    </marker>
+  </defs>
+
+  <line x1="210" y1="165" x2="250" y2="165" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"></line>
+  <line x1="420" y1="165" x2="460" y2="165" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"></line>
+  <line x1="630" y1="165" x2="670" y2="165" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"></line>
+
+  <!-- Eixos -->
+  <rect x="240" y="260" width="420" height="90" rx="14" fill="#e0e7ff" stroke="#4338ca" stroke-width="2"></rect>
+  <text x="450" y="295" text-anchor="middle" font-weight="bold" fill="#312e81">
+    Eixos do Telescópio
+  </text>
+  <text x="450" y="318" text-anchor="middle" font-size="13" fill="#312e81">
+    AZ (Azimute) • ALT (Altitude)
+  </text>
+
+  <!-- Setas verticais -->
+  <line x1="765" y1="210" x2="450" y2="260" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"></line>
+
+  <!-- Observação -->
+  <text x="450" y="385" text-anchor="middle" font-size="12" fill="#475569">
+    A precisão final depende exclusivamente da qualidade mecânica e da parametrização
+    (steps/deg, microstepping e compensação de folga).
+  </text>
+
+</svg>
