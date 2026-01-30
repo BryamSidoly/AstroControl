@@ -178,6 +178,29 @@
       </ul>
     </section>
 
+    <div class="bg-orange-50 border-l-4 border-orange-500 p-4 text-sm mt-6">
+      <strong>🔧 Backlash (Folga Mecânica)</strong><br><br>
+
+      <p class="mb-2">
+        <strong>Backlash não é erro de software.</strong><br>
+        É folga mecânica presente em engrenagens, correias, polias ou sem-fim.
+      </p>
+
+      <p class="mb-2">
+        O AstroControl possui <strong>compensação de backlash</strong>,
+        mas ela atua apenas de forma <u>limitada e previsível</u>.
+      </p>
+
+      <p class="italic text-gray-700">
+        👉 Software pode <strong>reduzir os efeitos</strong>,
+        mas <strong>não elimina folga mecânica mal ajustada</strong>.
+      </p>
+
+      <p class="mt-2 text-xs text-gray-500">
+        Para melhor desempenho: reduções bem ajustadas, eixos rígidos
+        e mínimo jogo mecânico são mais importantes que qualquer ajuste de código.
+      </p>
+    </div>
 
     <h3 class="font-bold text-lg mt-6 mb-2">
       Tipos de Redução Mecânica Compatíveis
@@ -239,7 +262,20 @@
       <p class="font-bold mb-4">Esquema Mecânico do Sistema</p>
       <img src="esquema_mecanico.svg" alt="Esquema mecânico do sistema AstroControl" class="mx-auto max-w-full h-auto">
     </div>
-    <br>
+    <div class="bg-red-50 border-l-4 border-red-500 p-4 text-sm mt-6">
+      <strong>⚠️ Segurança Mecânica</strong><br><br>
+
+      <ul class="list-disc list-inside space-y-1 ml-4">
+        <li>Não deixe os <strong>motores energizados sem supervisão</strong></li>
+        <li>Tenha cuidado com <strong>colisões em montagens fechadas</strong></li>
+        <li>Sem <strong>limites físicos</strong>, o risco mecânico é real</li>
+      </ul>
+
+      <p class="mt-3 text-xs text-gray-600 italic">
+        O sistema assume liberdade total de movimento.
+        A responsabilidade por limites e proteção mecânica é do projeto físico.
+      </p>
+    </div>
 
     <section id="zero-mecanico" class="space-y-6 mt-12">
       <h2 class="text-2xl font-bold border-b-4 border-indigo-500 inline-block mb-4">
@@ -316,7 +352,7 @@
           <text x="310" y="205" font-size="8" font-weight="bold">
             Horizonte (ALT = 0°)
           </text>
-          
+
           <!-- Norte -->
           <line x1="200" y1="200" x2="200" y2="80" stroke="#2563eb" stroke-width="3" />
           <polygon points="200,60 190,80 210,80" fill="#2563eb" />
@@ -657,8 +693,61 @@
       para compensar a rotação da Terra em tempo real.
     </div>
 
+    <section id="faq" class="space-y-6 mt-12">
+      <h2 class="text-2xl font-bold border-b-4 border-indigo-500 inline-block mb-4">
+        6.FAQ Honesto
+      </h2>
+
+      <div class="space-y-4 text-sm">
+
+        <div class="bg-white p-4 shadow rounded border-l-4 border-indigo-500">
+          <strong>❓ Por que não usar encoders?</strong>
+          <p class="mt-2">
+            Porque o objetivo do AstroControl é ser
+            <strong>simples, acessível e reproduzível</strong>.
+            Encoders aumentam custo, complexidade elétrica e lógica de controle.
+          </p>
+          <p class="mt-1">
+            O sistema funciona assumindo que os motores
+            <strong>não perdem passos</strong> — por isso a mecânica é tão importante.
+          </p>
+        </div>
+
+        <div class="bg-white p-4 shadow rounded border-l-4 border-teal-500">
+          <strong>❓ Por que não usar montagem equatorial?</strong>
+          <p class="mt-2">
+            Montagens equatoriais são excelentes, mas exigem:
+          </p>
+          <ul class="list-disc list-inside ml-4 mt-1">
+            <li>Alinhamento polar preciso</li>
+            <li>Estrutura mecânica mais complexa</li>
+            <li>Maior custo e peso</li>
+          </ul>
+          <p class="mt-2">
+            A proposta aqui é explorar o máximo possível
+            de uma <strong>montagem Alt-Az bem controlada</strong>.
+          </p>
+        </div>
+
+        <div class="bg-white p-4 shadow rounded border-l-4 border-orange-500">
+          <strong>❓ Até onde dá pra ir com esse sistema?</strong>
+          <p class="mt-2">
+            Muito longe para <strong>observação visual</strong>,
+            <strong>planetária</strong> e projetos educacionais.
+          </p>
+          <p class="mt-1">
+            Para <strong>astrofotografia profunda de longa exposição</strong>,
+            existem limitações físicas inerentes à montagem Alt-Az.
+          </p>
+          <p class="mt-2 italic text-gray-700">
+            👉 O AstroControl não promete milagres — ele entrega entendimento.
+          </p>
+        </div>
+
+      </div>
+    </section>
     <section id="arquivos" class="space-y-6">
-      <h2 class="text-2xl font-bold border-b-4 border-blue-500 inline-block mb-4">6. Arquivos do Projeto</h2>
+      <h2 class="text-2xl font-bold border-b-4 border-blue-500 inline-block mb-4">FINALMETE: Arquivos do Projeto</h2>
 
       <div class="grid md:grid-cols-2 gap-4">
         <div class="bg-gray-900 text-white p-6 rounded-xl shadow-lg relative overflow-hidden group">
@@ -732,7 +821,6 @@
         </div>
       </div>
     </section>
-
   </main>
 
   <footer class="bg-slate-950 text-slate-400 py-8 text-center text-sm">
