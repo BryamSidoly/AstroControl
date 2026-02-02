@@ -27,7 +27,7 @@ O projeto foi desenvolvido com foco em precisão, simplicidade de firmware e tra
 
 2. Arquitetura do Sistema
 
-  Skyfield (Efemérides JPL DE421) -> AstroControl (Python, Cálculo AZ/ALT,Refração, TRACK em °/s) -> USB/Bluetooth -> Arduino UNO (Protocolo texto/binário, Controle de motores) -> Motores de passo (NEMA 17, AZ / ALT)
+  Skyfield (Efemérides JPL DE421) -> AstroControl (Python, Cálculo AZ/ALT, Refração, TRACK em °/s) -> USB/Bluetooth -> Arduino UNO (Protocolo texto/binário, Controle de motores) -> Motores de passo (NEMA 17, AZ / ALT)
 
 3. Modelo Astronômico
 3.1 Efemérides
