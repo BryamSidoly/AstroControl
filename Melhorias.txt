@@ -1,0 +1,76 @@
+Ideias de melhoria para a v3.1:
+
+1. Feedback real de posição (game changer)
+
+  Hoje o PC assume que o motor chegou onde mandou.
+
+  Upgrade possível:
+
+  Encoders incrementais (AS5600, AMT102, etc) opcionais
+
+  Arduino envia:
+
+  POS AZ=123.45 ALT=67.89
+
+  Python passa a fechar o loop (closed-loop)
+
+  * Para melhora1 track longo (principalmente Lua).
+
+2. Modelo simples de erro mecânico
+
+  Compensar:
+
+  Erro de polaridade
+
+  Desalinhamento do eixo
+
+  Offset fixo de montagem
+
+  Ex:
+  az_corr = az + self.az_offset + self.az_scale * az
+  alt_corr = alt + self.alt_offset
+
+
+3. Opção de modo Equatorial virtual
+
+Mesmo sendo AZ/ALT da pra fazer:
+
+  Mostrar RA/DEC na UI
+
+  Mostrar taxa sideral
+
+  Mostrar erro de acompanhamento
+
+  Objetivo: Melhoria para astrofotografia.
+
+4. track adaptativo
+
+  Hoje: if abs(vaz) < 0.0001: return
+
+  Melhorar com:
+
+  Filtro exponencial
+
+  Média móvel
+
+  Kalman simples
+
+  Objetivo: menos micro-vibração.
+
+5. Segurança de firmware
+
+  Pequenos upgrades:
+
+  Verificar checksum no Arduino (hoje não valida)
+
+  Timeout de TRACK (se parar de receber, desacelera)
+
+  Rampa suave ao entrar/sair de TRACK
+
+6. UX (detalhe, mas bonito)
+
+  Indicador gráfico de céu (bússola simples) e/ou horizonte artifical
+
+  Histórico de comandos
+
+  Botão “SYNC com astro atual” (plate solving manual)
