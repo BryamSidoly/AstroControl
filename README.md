@@ -1,5 +1,7 @@
 AstroControl
 
+Manual: https://bryamsidoly.github.io/AstroControl/
+
 Controlador Open-Source de Telescópio AZ/ALT com GOTO e TRACK por Velocidade Angular
 
 Versão: 3.0 Stable
