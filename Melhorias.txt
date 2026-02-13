@@ -74,3 +74,5 @@ Mesmo sendo AZ/ALT da pra fazer:
   Histórico de comandos
 
   Botão “SYNC com astro atual” (plate solving manual)
+
+  Integração com maps e clima para sincronizar dados sem precisar sair do sistema
